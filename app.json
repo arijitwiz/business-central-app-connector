@@ -1,0 +1,32 @@
+{
+  "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "name": "WizCommerce Connector",
+  "publisher": "WizCommerce",
+  "version": "1.0.0.0",
+  "brief": "WizCommerce Business Central Connector",
+  "description": "Custom OData APIs for WizCommerce Business Central V2 integrations (ship-tos, prices, archives, tracking, inventory).",
+  "privacyStatement": "https://wizcommerce.com/privacy",
+  "EULA": "https://wizcommerce.com/eula",
+  "help": "https://wizcommerce.com/docs/business-central-connector",
+  "url": "https://wizcommerce.com",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "24.0.0.0",
+  "application": "24.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": false,
+    "includeSourceInSymbolFile": false
+  },
+  "runtime": "13.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
