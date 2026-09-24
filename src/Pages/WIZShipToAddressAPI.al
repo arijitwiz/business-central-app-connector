@@ -4,15 +4,19 @@ page 50100 "WIZ Ship-to Address API"
     APIPublisher = 'wizcommerce';
     APIGroup = 'connector';
     APIVersion = 'v1.0';
+    EntityCaption = 'Wiz Ship-to Address';
+    EntitySetCaption = 'Wiz Ship-to Addresses';
     EntityName = 'wizShipToAddress';
     EntitySetName = 'wizShipToAddresses';
     SourceTable = "Ship-to Address";
     ODataKeyFields = SystemId;
+    ChangeTrackingAllowed = true;
     DelayedInsert = true;
     InsertAllowed = true;
     ModifyAllowed = true;
     DeleteAllowed = false;
     Extensible = false;
+    AboutText = 'Exposes customer ship-to address book records from standard Business Central table Ship-to Address. Used by WizCommerce Business Central V2 for buyer shipping address pull and push. Not available on Microsoft APIV2 as a dedicated entity.';
 
     layout
     {

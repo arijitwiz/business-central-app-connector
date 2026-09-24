@@ -4,15 +4,19 @@ page 50101 "WIZ Shipment Tracking API"
     APIPublisher = 'wizcommerce';
     APIGroup = 'connector';
     APIVersion = 'v1.0';
+    EntityCaption = 'Wiz Shipment Tracking';
+    EntitySetCaption = 'Wiz Shipment Trackings';
     EntityName = 'wizShipmentTracking';
     EntitySetName = 'wizShipmentTrackings';
     SourceTable = "Sales Shipment Header";
     ODataKeyFields = SystemId;
+    ChangeTrackingAllowed = true;
     DelayedInsert = true;
     InsertAllowed = false;
     ModifyAllowed = false;
     DeleteAllowed = false;
     Extensible = false;
+    AboutText = 'Read-only projection of carrier and package tracking fields from Sales Shipment Header for WizCommerce shipment enrichment.';
 
     layout
     {

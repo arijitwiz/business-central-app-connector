@@ -1,18 +1,22 @@
-page 50104 "WIZ Customer Price API"
+page 50102 "WIZ Customer Price API"
 {
     PageType = API;
     APIPublisher = 'wizcommerce';
     APIGroup = 'connector';
     APIVersion = 'v1.0';
+    EntityCaption = 'Wiz Customer Price';
+    EntitySetCaption = 'Wiz Customer Prices';
     EntityName = 'wizCustomerPrice';
     EntitySetName = 'wizCustomerPrices';
     SourceTable = "Price List Line";
     ODataKeyFields = SystemId;
+    ChangeTrackingAllowed = true;
     DelayedInsert = true;
     InsertAllowed = false;
     ModifyAllowed = false;
     DeleteAllowed = false;
     Extensible = false;
+    AboutText = 'Read-only customer price list lines for WizCommerce buyer price enrichment. Microsoft APIV2 does not expose this projection.';
 
     layout
     {

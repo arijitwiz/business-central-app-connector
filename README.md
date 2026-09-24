@@ -1,10 +1,32 @@
-# business-central-app-connector
+# WizCommerce Business Central Connector
 
-WizCommerce Business Central Connector `.app` — custom OData APIs that fill gaps Microsoft’s standard `/api/v2.0` does not expose.
+Thin Business Central extension that exposes **only the data Microsoft APIV2 does not give us**, for use by existing **Business Central V2**.
 
-Used with existing **Business Central V2** via `workflow.data` only. No V1 changes. No new integration type.
+Repo: https://github.com/arijitwiz/business-central-app-connector
 
-## API contract (locked)
+## What this is
+
+```
+Customer Business Central
+  ├── Microsoft APIV2          → customers, orders, items, invoices, payments, archives
+  └── WizCommerce Connector    → ship-tos, prices, tracking, usable inventory
+            │
+            ▼ OAuth (same Entra app as today)
+     Business Central V2
+            │
+            ▼
+      WizCommerce
+```
+
+- **Exposes data** via OData API pages/queries
+- **Does not** own sync logic (that stays in V2 / Kaiba)
+- **Does not** copy Shopify-style in-BC sync engines
+- **Does not** put Atlas/BMC/customer-specific mapping in AL
+
+Pattern reference: Microsoft [APIV2](https://github.com/microsoft/BCApps/tree/main/src/Apps/W1/APIV2)  
+Go-to-market reference: partner installs add-on → Entra app → permission set → external SaaS calls OData
+
+## Locked API contract
 
 | Property | Value |
 |---|---|
@@ -18,15 +40,16 @@ Base path:
 /api/wizcommerce/connector/v1.0/companies({companyId})/
 ```
 
-## Endpoints
+## Endpoints (v1)
 
-| Entity set | Source | Ops |
-|---|---|---|
-| `wizShipToAddresses` | Ship-to Address | GET, POST, PATCH |
-| `wizShipmentTrackings` | Sales Shipment Header | GET |
-| `wizSalesOrderArchives` | Sales Header Archive (+ lines expand) | GET |
-| `wizCustomerPrices` | Price List Line | GET |
-| `wizItemAvailabilities` | Item (API query) | GET |
+| Entity set | Source | Ops | Why not Microsoft APIV2 |
+|---|---|---|---|
+| `wizShipToAddresses` | Ship-to Address | GET POST PATCH | No dedicated customer ship-to address book API |
+| `wizShipmentTrackings` | Sales Shipment Header | GET | Carrier / package tracking for V2 enricher |
+| `wizCustomerPrices` | Price List Line | GET | No clean customer price projection |
+| `wizItemAvailabilities` | Item (API query) | GET | Prefer one call over V2 multi-call inventory fallback |
+
+**Not in this app:** sales order archives — use Microsoft `/api/v2.0/.../salesOrderArchives`.
 
 ## Project layout
 
@@ -35,55 +58,44 @@ Base path:
 ├── .vscode/launch.json
 ├── src/
 │   ├── Pages/
-│   │   ├── WIZShipToAddressAPI.al
-│   │   ├── WIZShipmentTrackingAPI.al
-│   │   ├── WIZSalesOrderArchiveAPI.al
-│   │   ├── WIZSalesOrderArchiveLineAPI.al
-│   │   └── WIZCustomerPriceAPI.al
+│   │   ├── WIZShipToAddressAPI.al      (50100)
+│   │   ├── WIZShipmentTrackingAPI.al   (50101)
+│   │   └── WIZCustomerPriceAPI.al      (50102)
 │   ├── Queries/
-│   │   └── WIZItemAvailability.Query.al
+│   │   └── WIZItemAvailability.Query.al (50103)
 │   └── PermissionSets/
-│       └── WIZConnector.PermissionSet.al
+│       └── WIZConnector.PermissionSet.al (50100)
 └── examples/
     ├── workflow.data.connector.json
-    ├── workflow.data.ship-to.json
-    ├── postman-connector.http
-    └── postman-ship-to.http
+    └── postman-connector.http
 ```
 
-## Publish to a BC sandbox
+## Publish (sandbox)
 
-1. Open this folder in VS Code with the **AL Language** extension.
-2. Set `environmentName` in `.vscode/launch.json`.
+1. Open this folder in VS Code + **AL Language**
+2. Set `environmentName` in `.vscode/launch.json`
 3. **AL: Download Symbols**
-4. `Ctrl+Shift+B` (compile)
-5. `Ctrl+F5` (publish / install)
+4. `Ctrl+Shift+B` compile
+5. `Ctrl+F5` publish
 
-## Configure access
+## Partner / IT configure
 
-1. In BC → **Microsoft Entra Applications**
-2. Open the app registration used by V2
-3. Assign permission set **WIZ CONNECTOR**
+1. Confirm extension **WizCommerce Connector** is installed
+2. Create Entra app (same SOP as BC V2) → `tenant_id`, `client_id`, `client_secret`
+3. BC → **Microsoft Entra Applications** → assign permission set **WIZ CONNECTOR**
+4. Share credentials + `environment` + `company_id` with Wiz
 
-## Test
+## Connect Business Central V2
 
-Use `examples/postman-connector.http` with the same OAuth as V2:
+Merge `examples/workflow.data.connector.json` into workflow `data`.
 
-- Scope: `https://api.businesscentral.dynamics.com/.default`
-- Grant: `client_credentials`
+Proof path:
 
-## Connect to Business Central V2
+1. `GET .../wizShipToAddresses?$top=1`
+2. Point buyer `shipping_addresses` at connector URL
+3. Run buyer pull → ship-tos on meta
+4. **No Python changes required**
 
-Merge `examples/workflow.data.connector.json` into the V2 workflow `data` (keep auth secrets).
+## Object IDs
 
-Customers / orders / invoices stay on Microsoft standard APIs. Only gap entities use the connector URLs.
-
-## Proof path (start here)
-
-1. Publish extension  
-2. Assign **WIZ CONNECTOR**  
-3. `GET .../wizShipToAddresses?$top=1`  
-4. Point buyer `shipping_addresses` at the connector URL  
-5. Run buyer pull → addresses on meta  
-
-Object IDs `50100–50105` are for sandbox only. Renumber into the Microsoft partner range before AppSource.
+Sandbox range `50100–50103`. Renumber into Microsoft partner range (`70,000,000+`) before AppSource. Never change `app.json` `id` GUID.

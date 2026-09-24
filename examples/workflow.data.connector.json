@@ -26,15 +26,6 @@
       }
     ]
   },
-  "order": {
-    "sales_archive": {
-      "name": "sales_archive",
-      "pull": true,
-      "endpoint": "/api/wizcommerce/connector/v1.0/companies({company_id})/wizSalesOrderArchives?$expand=wizSalesOrderArchiveLines",
-      "line_item_key": "wizSalesOrderArchiveLines",
-      "pagination_type": "skip"
-    }
-  },
   "shipment": {
     "sub_entities": true,
     "sub_entity_list": [

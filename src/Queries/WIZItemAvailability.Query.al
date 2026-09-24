@@ -1,11 +1,14 @@
-query 50105 "WIZ Item Availability"
+query 50103 "WIZ Item Availability"
 {
     QueryType = API;
     APIPublisher = 'wizcommerce';
     APIGroup = 'connector';
     APIVersion = 'v1.0';
+    EntityCaption = 'Wiz Item Availability';
+    EntitySetCaption = 'Wiz Item Availabilities';
     EntityName = 'wizItemAvailability';
     EntitySetName = 'wizItemAvailabilities';
+    AboutText = 'Read-only item availability fields for WizCommerce inventory sync. Prefer this over multi-call inventory fallback in Business Central V2.';
 
     elements
     {
