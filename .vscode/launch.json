@@ -2,11 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "BC Sandbox",
+      "name": "WizCommerce Sandbox",
       "type": "al",
       "request": "launch",
       "environmentType": "Sandbox",
-      "environmentName": "sandbox",
+      "environmentName": "Sandbox",
+      "tenant": "YOUR_TENANT_ID",
       "startupObjectId": 50100,
       "startupObjectType": "Page",
       "breakOnError": true,

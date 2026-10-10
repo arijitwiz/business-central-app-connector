@@ -70,31 +70,25 @@ Base path:
     └── postman-connector.http
 ```
 
-## Publish (sandbox)
+## Publish to Sandbox (Mac)
 
-1. Open this folder in VS Code + **AL Language**
-2. Set `environmentName` in `.vscode/launch.json`
-3. **AL: Download Symbols**
-4. `Ctrl+Shift+B` compile
-5. `Ctrl+F5` publish
+Full step-by-step guide:
 
-## Partner / IT configure
+→ **[docs/PUBLISH_SANDBOX_MAC.md](docs/PUBLISH_SANDBOX_MAC.md)**
 
-1. Confirm extension **WizCommerce Connector** is installed
-2. Create Entra app (same SOP as BC V2) → `tenant_id`, `client_id`, `client_secret`
-3. BC → **Microsoft Entra Applications** → assign permission set **WIZ CONNECTOR**
-4. Share credentials + `environment` + `company_id` with Wiz
+Short path:
 
-## Connect Business Central V2
+1. Install VS Code + **AL Language**, then **Developer: Reload Window**
+2. Open this repo (do not run **AL: Go!**)
+3. Set Sandbox `tenant` / `environmentName` in `.vscode/launch.json`
+4. **AL: Download Symbols** → build → **AL: Publish** (Sandbox only)
+5. In BC: **Extension Management** → confirm **WizCommerce Connector**
+6. Entra app + assign permission set **WIZ CONNECTOR**
+7. Test `GET .../wizShipToAddresses?$top=1`
+8. Merge `examples/workflow.data.connector.json` into BC V2 workflow `data`
+9. Run buyer pull — ship-tos on meta, no Python changes
 
-Merge `examples/workflow.data.connector.json` into workflow `data`.
-
-Proof path:
-
-1. `GET .../wizShipToAddresses?$top=1`
-2. Point buyer `shipping_addresses` at connector URL
-3. Run buyer pull → ship-tos on meta
-4. **No Python changes required**
+Sandbox only in this phase. No Partner Center / AppSource submission yet.
 
 ## Object IDs
 
