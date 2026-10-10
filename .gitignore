@@ -1,4 +1,8 @@
 .alpackages/
+.alcache/
 .vscode/.alcache/
 *.app
-*.zip
+alc.build.log
+alc.errors.log
+.dotnet-runtime/
+.DS_Store

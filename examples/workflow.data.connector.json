@@ -1,10 +1,10 @@
 {
   "scope": "https://api.businesscentral.dynamics.com/.default",
-  "tenant_id": "YOUR_TENANT_ID",
+  "tenant_id": "aaf26c70-a831-4c8b-a0ad-35e35f29f7af",
   "client_id": "YOUR_CLIENT_ID",
   "client_secret": "YOUR_CLIENT_SECRET",
-  "environment": "sandbox",
-  "company_id": "YOUR_COMPANY_ID",
+  "environment": "Sandbox",
+  "company_id": "c6a9170d-f7bb-f111-85be-7ced8d9daf2f",
   "buyer": {
     "sub_entities": true,
     "sub_entity_list": [

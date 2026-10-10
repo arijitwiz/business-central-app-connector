@@ -70,6 +70,11 @@ Base path:
     └── postman-connector.http
 ```
 
+## Sandbox status
+
+Live Sandbox setup completed for tenant `aaf26c70-a831-4c8b-a0ad-35e35f29f7af` / company **CRONUS IN**.  
+See **[docs/SANDBOX_SETUP_RESULT.md](docs/SANDBOX_SETUP_RESULT.md)** for verified API sample responses.
+
 ## Publish to Sandbox (Mac)
 
 Full step-by-step guide:

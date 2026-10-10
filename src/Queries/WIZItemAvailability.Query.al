@@ -34,9 +34,9 @@ query 50103 "WIZ Item Availability"
             {
                 Caption = 'Qty. on Purch. Order';
             }
-            column(reservedQtyBase; "Reserved Qty. (Base)")
+            column(qtyOnSalesOrder; "Qty. on Sales Order")
             {
-                Caption = 'Reserved Qty. (Base)';
+                Caption = 'Qty. on Sales Order';
             }
             column(lastModifiedDateTime; SystemModifiedAt)
             {
