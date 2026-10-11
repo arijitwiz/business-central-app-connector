@@ -209,14 +209,11 @@ https://api.businesscentral.dynamics.com/v2.0/{tenant}/{environment}/api/wizcomm
 
 Use `examples/postman-connector.http` or Postman with client-credentials token.
 
-Implemented entities in this repo:
+This phase implements **ship-to only**:
 
 | Entity | Ops |
 |---|---|
 | `wizShipToAddresses` | GET, POST, PATCH |
-| `wizShipmentTrackings` | GET |
-| `wizCustomerPrices` | GET |
-| `wizItemAvailabilities` | GET |
 
 Primary smoke test:
 
@@ -228,10 +225,8 @@ Also verify:
 
 1. `GET /api/v2.0/companies` works with the same credentials
 2. Correct `companyId` is used
-3. Permission set is assigned (no 401/403)
+3. Permission set **WIZ CONNECTOR** is assigned (no 401/403)
 4. Returned JSON field names match V2 expectations (`customerNumber`, etc.)
-
-Not in this app: `wizSalesOrderArchives` / lines — use Microsoft `/api/v2.0/.../salesOrderArchives`.
 
 ---
 
@@ -246,10 +241,9 @@ Only after Sandbox API tests pass:
    - `client_secret`
    - `environment`
    - `company_id`
-3. Merge connector URLs from `examples/workflow.data.connector.json`
-4. Enable supported entities one at a time (start with buyer `shipping_addresses`)
-5. Run buyer pull end-to-end
-6. Confirm ship-to addresses appear on buyer meta
+3. Merge `examples/workflow.data.connector.json` (buyer `shipping_addresses` only)
+4. Run buyer pull end-to-end
+5. Confirm ship-to addresses appear on buyer meta
 
 Each customer’s credentials and `workflow.data` stay independent. Do not reuse Sandbox secrets in production.
 
