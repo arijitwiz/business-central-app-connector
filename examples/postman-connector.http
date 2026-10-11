@@ -9,11 +9,11 @@
 GET {{baseUrl}}/api/v2.0/companies
 Authorization: Bearer {{accessToken}}
 
-### 2) Ship-to addresses (primary POC)
+### 2) GET ship-to addresses
 GET {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizShipToAddresses?$top=10
 Authorization: Bearer {{accessToken}}
 
-### 3) Ship-to filter
+### 3) Ship-to filter by customer
 GET {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizShipToAddresses?$filter=customerNumber eq '10000'
 Authorization: Bearer {{accessToken}}
 
@@ -32,14 +32,11 @@ Content-Type: application/json
   "country": "US"
 }
 
-### 5) Shipment tracking
-GET {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizShipmentTrackings?$top=10
+### 5) PATCH ship-to (use id from GET/POST response)
+PATCH {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizShipToAddresses({{shipToId}})
 Authorization: Bearer {{accessToken}}
+Content-Type: application/json
 
-### 6) Customer prices
-GET {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizCustomerPrices?$top=10
-Authorization: Bearer {{accessToken}}
-
-### 7) Item availabilities
-GET {{baseUrl}}/api/wizcommerce/connector/v1.0/companies({{companyId}})/wizItemAvailabilities?$top=10
-Authorization: Bearer {{accessToken}}
+{
+  "name": "Updated Warehouse Name"
+}
